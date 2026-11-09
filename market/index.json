@@ -1,0 +1,43 @@
+{
+  "format": 1,
+  "title": { "en": "Inkfall themes", "zh": "墨色主题集" },
+  "description": {
+    "en": "An ink-and-rice-paper skin for the DSH Web GUI.",
+    "zh": "水墨宣纸质感的 DSH 界面主题。"
+  },
+  "metadata": {
+    "categories": {
+      "theme": { "title": { "en": "Themes", "zh": "主题" } }
+    },
+    "labels": {
+      "community": { "title": { "en": "Community", "zh": "社区" } }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-theme-inkfall",
+      "title": { "en": "Ink theme", "zh": "墨色主题" },
+      "description": {
+        "en": "Ink-black surfaces, rice-paper grain, gold hairlines, a corner astrolabe and a dedicated settings page.",
+        "zh": "墨黑底、宣纸噪点、金色细线、角落星盘，附专属设置页与侧栏开关。"
+      },
+      "icon": "../icon.svg",
+      "metadata": {
+        "category": "theme",
+        "labels": ["community"],
+        "keywords": ["theme", "ink", "chinese"]
+      },
+      "versions": [
+        {
+          "version": "2.5.0",
+          "publishTimestamp": 1762695000,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/REPLACE_WITH_YOUR_USERNAME/dsh-theme-inkfall",
+            "commit": "REPLACE_WITH_40_HEX_COMMIT"
+          }
+        }
+      ]
+    }
+  ]
+}
