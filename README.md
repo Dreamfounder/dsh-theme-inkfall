@@ -1,8 +1,8 @@
-# 墨色主题 · Ink theme
+# 墨蚀：拾字纪 · INKFALL
 
-把 DSH Web 界面换成水墨视觉系统：墨黑绿底、淡金 72px 网格与宣纸噪点、朱砂印章、宋体标题、青瓷/朱砂两色点缀。
+《墨蚀：拾字纪》INKFALL 的界面主题：墨黑绿底、淡金 72px 网格与宣纸噪点、朱砂印章、宋体排印、角落星盘。
 
-> 视觉语言参考 [墨蚀：拾字纪 · INKFALL](https://dreamfounder.github.io/inkfall/)（`:root` 色板、环境光、网格、噪点与印章做法均取自该站的公开 CSS）。本项目是独立实现，不包含该游戏的任何素材、代码或文本。
+> 视觉语言取自 [墨蚀：拾字纪 · INKFALL](https://dreamfounder.github.io/inkfall/) 公开站点的 CSS（`:root` 色板、环境光、网格、噪点与印章做法）。本项目是独立实现，不包含该游戏的素材、代码或文本；`墨蚀：拾字纪` 相关名称与内容版权归其作者所有。
 
 - 纯 CSS，无图片资源、无第三方依赖、无构建步骤。
 - 深色为主（墨色）；「素纸」亮色变体（宣纸米白 + 墨字）可跟随明暗或强制开启。
@@ -17,10 +17,10 @@
 已发布到 npm：[`dsh-theme-inkfall`](https://www.npmjs.com/package/dsh-theme-inkfall)
 
 ```
-dsh-theme-inkfall@2.5.0
+dsh-theme-inkfall@2.6.0
 ```
 
-> 建议写精确版本：包名下还留着一个 `0.0.0-stage` 占位版本，pnpm 的 `minimumReleaseAge` 策略可能优先解析到它并安装失败。写死 `@2.5.0` 就不会。
+> 建议写精确版本：包名下还留着一个 `0.0.0-stage` 占位版本，pnpm 的 `minimumReleaseAge` 策略可能优先解析到它并安装失败。写死 `@2.6.0` 就不会。
 
 ### 方式二：tarball 地址（**不需要本机装 Git**）
 
@@ -31,14 +31,14 @@ https://github.com/Dreamfounder/dsh-theme-inkfall/archive/refs/heads/main.tar.gz
 钉版本（需要先在仓库发布 Release 打 tag）：
 
 ```
-https://github.com/Dreamfounder/dsh-theme-inkfall/archive/refs/tags/v2.5.0.tar.gz
+https://github.com/Dreamfounder/dsh-theme-inkfall/archive/refs/tags/v2.6.0.tar.gz
 ```
 
 ### 方式三：git spec（需要本机已安装 Git）
 
 ```
 github:Dreamfounder/dsh-theme-inkfall
-github:Dreamfounder/dsh-theme-inkfall#v2.5.0
+github:Dreamfounder/dsh-theme-inkfall#v2.6.0
 ```
 
 > pnpm 解析 `github:` 规格时会调用本机 `git ls-remote`。**机器上没有 git 会直接失败**，报
@@ -76,18 +76,16 @@ dsh plugin --profile web add <本目录的绝对路径>
 
 ## 怎么用
 
-装好即生效，三处入口：
+装好即生效，入口在 **设置 → 墨蚀**。
 
-1. **侧边栏底部**：设置齿轮旁的朱砂印章，点一下开关主题。
-2. **设置 → 墨色**：完整设置页。
+1. **设置 → 墨蚀**：完整设置页。
    - `启用主题`：总开关。
    - `水墨底纹`：墨底 + 淡金网格 + 宣纸噪点，关掉只留纯墨底。
    - `宋体正文`：把 `--dsw-font-family` 改成宋体栈（思源宋体 / 宋体 / SimSun），正文与界面文字一起换，这是「一眼看出不是原生主题」的关键一项；嫌宋体挤就关掉。
    - `跟随明暗外观`：默认关（墨色是深色系统）；开启后跟随「外观 → 浅色/深色」，浅色即「素纸」。
    - `界框`：视口左右与底部一道淡金发丝线（顶边留给宿主 chrome）、底部两角小刻痕、右下「墨」字水印、左上角星盘。
    - `主色`：淡金 / 青瓷 / 朱砂 / 宣纸。
-3. 页面底部显示版本号，可确认浏览器里跑的是哪一版。
-
+2. 页面底部显示版本号，可确认浏览器里跑的是哪一版。
 设置存在当前浏览器的 `localStorage`（键 `dsh.ink-theme.prefs.v1`）。
 
 ## 视觉规格

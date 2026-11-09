@@ -98,7 +98,13 @@ npm **不允许同版本重发**，每次更新必须改版本号。撤回（`pn
 
 ## 发布状态（2026-11-09）
 
-- **已发布**：`dsh-theme-inkfall@2.5.0`，registry `latest` 指向 2.5.0
-- **装法**：`dsh-theme-inkfall@2.5.0`（精确版本）
+- **当前 latest**：`dsh-theme-inkfall@2.6.0`
+- **装法**：`dsh-theme-inkfall@2.6.0`（精确版本）
 - **遗留**：registry 里还有一个 `0.0.0-stage` 占位版本（npm 暂存发布留下的），当前 token 没有 unpublish 权限删不掉。pnpm 的 `minimumReleaseAge` 策略可能优先解析到它，所以**安装时务必写精确版本**
 - 待 72 小时后（或换有 unpublish 权限的 token）可以尝试 `pnpm unpublish dsh-theme-inkfall@0.0.0-stage --force`
+
+### 更新（2.6.0，2026-11-09）
+
+- 发布方式：`pnpm stage publish` → 网页 Staged Packages 审批（token 为 stage-only，CLI 的 `stage approve` 会报 404，是 pnpm 11 的问题）
+- 结果：`versions` 含 `2.5.0` / `2.6.0`，`latest` → `2.6.0`
+- 命名改动：显示名改为「墨蚀：拾字纪」/ Inkfall，简介改为该游戏主题；侧边栏的开关按钮已移除，只保留设置页

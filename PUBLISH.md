@@ -38,7 +38,7 @@ locale/  market/  README.md  LICENSE  .gitignore
 
 1. 点仓库页的 **Commits**（或文件列表上方的提交记录）
 2. 点最新那条提交的标题
-3. 地址栏会是 `https://github.com/<用户名>/<仓库名>/commit/<40位SHA>`
+3. 地址栏会是 `https://github.com/Dreamfounder/<仓库名>/commit/<40位SHA>`
 4. 复制最后那 40 位
 
 ## 5. 填插件市场索引（可选，但推荐）
@@ -50,7 +50,7 @@ locale/  market/  README.md  LICENSE  .gitignore
 3. 只改这两行：
 
 ```json
-"url": "https://github.com/<用户名>/dsh-theme-inkfall",
+"url": "https://github.com/Dreamfounder/dsh-theme-inkfall",
 "commit": "<40位SHA>"
 ```
 
@@ -59,7 +59,7 @@ locale/  market/  README.md  LICENSE  .gitignore
 改完可以在浏览器里打开下面这个地址验证：应该直接看到 JSON 内容，不是 404。
 
 ```
-https://raw.githubusercontent.com/<用户名>/dsh-theme-inkfall/main/market/index.json
+https://raw.githubusercontent.com/Dreamfounder/dsh-theme-inkfall/main/market/index.json
 ```
 
 ## 6. 打 tag（可选）
@@ -72,13 +72,34 @@ https://raw.githubusercontent.com/<用户名>/dsh-theme-inkfall/main/market/inde
 
 ## 7. 发给别人
 
-```
-安装 spec：github:<用户名>/dsh-theme-inkfall
-桌面版：设置 → 插件 → 添加插件 → 粘贴上面这行
+**不需要对方装 Git 的写法（推荐）：**
 
-或插件索引（第 5 步做了才有）：
-https://raw.githubusercontent.com/<用户名>/dsh-theme-inkfall/main/market/index.json
 ```
+在「设置 → 插件 → 添加插件」里粘贴：
+https://github.com/Dreamfounder/dsh-theme-inkfall/archive/refs/heads/main.tar.gz
+```
+
+**对方装了 Git 也可以用 git 规格：**
+
+```
+github:Dreamfounder/dsh-theme-inkfall
+```
+
+**插件索引（第 5 步做了才有，仍需要对方装 Git）：**
+
+```
+https://raw.githubusercontent.com/Dreamfounder/dsh-theme-inkfall/main/market/index.json
+```
+
+> 为什么区分：`github:` 规格和索引里的 git 源都会调用本机 `git ls-remote`，机器上没装 Git 会报 `ERR_PNPM_GIT_RESOLVE_FAILED`；tarball 地址走 HTTPS 下载，不需要 Git。
+
+**关于更新**：pnpm 按 URL 缓存远程 tarball，`refs/heads/main` 这个地址内容变了也可能命中缓存。所以发版后建议用带 tag 的地址：
+
+```
+https://github.com/Dreamfounder/dsh-theme-inkfall/archive/refs/tags/v2.5.1.tar.gz
+```
+
+URL 变了才会重新下载。
 
 ## 8. 以后更新
 
