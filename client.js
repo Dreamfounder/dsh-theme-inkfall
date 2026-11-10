@@ -6,7 +6,7 @@ window.__ModuleLoader__.load({
 
     const NS = 'ink-theme';
     const STORAGE_KEY = 'dsh.ink-theme.prefs.v1';
-    const VERSION = '2.7.0';
+    const VERSION = '2.11.0';
 
     const SERIF = '"Noto Serif SC","Songti SC","STSong","SimSun",serif';
     const KAI = '"KaiTi","STKaiti","Kaiti SC","FangSong",serif';
@@ -238,6 +238,8 @@ body::after {
 .ink-frame__mark { position: absolute; right: 2.6vw; bottom: 2.2vh; font-family: ${SERIF}; font-size: clamp(200px, 26vw, 380px); line-height: .82; color: rgba(201, 169, 106, .055); user-select: none; }
 .ink-frame__vertical { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-family: ${SERIF}; font-size: 11px; letter-spacing: .42em; color: rgba(201, 169, 106, .32); }
 .ink-frame__vertical em { font-style: normal; color: rgba(201, 169, 106, .18); }
+.ink-hero-word { position: absolute; left: calc(50% + 148px); top: 40%; transform: translate(-50%, -50%); pointer-events: none; user-select: none; white-space: nowrap; text-align: center; font-family: ${SERIF}; font-weight: 700; font-size: clamp(96px, 13.5vw, 208px); letter-spacing: .09em; line-height: 1; color: rgba(238, 231, 214, .05); }
+.ink-hero-word b { display: block; font-weight: inherit; }
 /* The ink astrolabe: a large, low-contrast instrument arc entering from the
    top-right corner (centre on the corner, one quarter showing). The plate
    fades out toward its rim, so there is no hard circular edge against the app.
@@ -374,6 +376,7 @@ body { --dsh-scrollbar-thumb: rgba(201, 169, 106, .34); --dsh-scrollbar-thumb-ho
       theme: null,
       locale: null,
       restorePreference: null,
+      blank: false,
       t: (key) => (Object.prototype.hasOwnProperty.call(ZH, key) ? ZH[key] : key),
       slotDisposers: [],
     };
@@ -626,6 +629,13 @@ body { --dsh-scrollbar-thumb: rgba(201, 169, 106, .34); --dsh-scrollbar-thumb-ho
         'div',
         { className: 'ink-frame', 'aria-hidden': 'true' },
         h('style', { key: 'css' }, buildCss(prefs)),
+        state.blank
+          ? h(
+              'div',
+              { key: 'word', className: 'ink-hero-word', 'aria-hidden': 'true' },
+              h('b', { key: 'w' }, 'INKFALL'),
+            )
+          : null,
         prefs.backdrop
           ? h(
               'div',
@@ -640,6 +650,24 @@ body { --dsh-scrollbar-thumb: rgba(201, 169, 106, .34); --dsh-scrollbar-thumb-ho
         prefs.backdrop ? h('div', { key: 'grain', className: 'ink-frame__grain' }) : null,
         ornament,
       );
+    }
+
+    /* ------------------------------------------------------------------ *
+     * Blank-session wordmark. The hero seat renders only on the empty New
+     * Session screen, so it is used purely as a signal: on mount it flips
+     * state.blank, and the frame paints the giant word on its own layer
+     * (above the columns, so no ancestor overflow can clip it).
+     * ------------------------------------------------------------------ */
+    function HeroProbe() {
+      React.useEffect(() => {
+        state.blank = true;
+        emit();
+        return () => {
+          state.blank = false;
+          emit();
+        };
+      }, []);
+      return null;
     }
 
     /* ------------------------------------------------------------------ *
@@ -849,6 +877,16 @@ body { --dsh-scrollbar-thumb: rgba(201, 169, 106, .34); --dsh-scrollbar-thumb-ho
                 InkSettings,
               )),
           'ink-theme: settings section',
+        );
+
+        ctx.effect(
+          () =>
+            ctx.slots.inject('conversation.hero.brand.mark', () =>
+              ctx.slots.register(
+                { name: 'conversation.hero.brand.mark', priority: -10 },
+                HeroProbe,
+              )),
+          'ink-theme: blank-session wordmark',
         );
 
         syncSkin();

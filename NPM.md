@@ -98,8 +98,8 @@ npm **不允许同版本重发**，每次更新必须改版本号。撤回（`pn
 
 ## 发布状态（2026-11-09）
 
-- **当前 latest**：`dsh-theme-inkfall@2.6.0`
-- **装法**：`dsh-theme-inkfall@2.6.0`（精确版本）
+- **当前 latest**：`dsh-theme-inkfall@2.11.0`
+- **装法**：`dsh-theme-inkfall@2.11.0`（精确版本）
 - **遗留**：registry 里还有一个 `0.0.0-stage` 占位版本（npm 暂存发布留下的），当前 token 没有 unpublish 权限删不掉。pnpm 的 `minimumReleaseAge` 策略可能优先解析到它，所以**安装时务必写精确版本**
 - 待 72 小时后（或换有 unpublish 权限的 token）可以尝试 `pnpm unpublish dsh-theme-inkfall@0.0.0-stage --force`
 
