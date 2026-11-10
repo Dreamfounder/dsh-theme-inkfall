@@ -17,10 +17,12 @@
 已发布到 npm：[`dsh-theme-inkfall`](https://www.npmjs.com/package/dsh-theme-inkfall)
 
 ```
-dsh-theme-inkfall@2.6.0
+dsh-theme-inkfall
 ```
 
-> 建议写精确版本：包名下还留着一个 `0.0.0-stage` 占位版本，pnpm 的 `minimumReleaseAge` 策略可能优先解析到它并安装失败。写死 `@2.6.0` 就不会。
+要钉版本就写 `dsh-theme-inkfall@2.7.0`。
+
+> 包名下还留着一个 `0.0.0-stage` 占位版本。刚发布新版的短时间内，pnpm 的 `minimumReleaseAge` 供应链策略可能把它当成"唯一够旧的版本"而解析到它，导致安装失败（报 `Unexpected end of TAR archive`）。遇到这种情况改用精确版本 `@2.7.0` 即可。
 
 ### 方式二：tarball 地址（**不需要本机装 Git**）
 
@@ -31,14 +33,14 @@ https://github.com/Dreamfounder/dsh-theme-inkfall/archive/refs/heads/main.tar.gz
 钉版本（需要先在仓库发布 Release 打 tag）：
 
 ```
-https://github.com/Dreamfounder/dsh-theme-inkfall/archive/refs/tags/v2.6.0.tar.gz
+https://github.com/Dreamfounder/dsh-theme-inkfall/archive/refs/tags/v2.7.0.tar.gz
 ```
 
 ### 方式三：git spec（需要本机已安装 Git）
 
 ```
 github:Dreamfounder/dsh-theme-inkfall
-github:Dreamfounder/dsh-theme-inkfall#v2.6.0
+github:Dreamfounder/dsh-theme-inkfall#v2.7.0
 ```
 
 > pnpm 解析 `github:` 规格时会调用本机 `git ls-remote`。**机器上没有 git 会直接失败**，报

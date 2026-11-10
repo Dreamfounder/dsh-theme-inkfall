@@ -6,7 +6,7 @@ window.__ModuleLoader__.load({
 
     const NS = 'ink-theme';
     const STORAGE_KEY = 'dsh.ink-theme.prefs.v1';
-    const VERSION = '2.5.0';
+    const VERSION = '2.7.0';
 
     const SERIF = '"Noto Serif SC","Songti SC","STSong","SimSun",serif';
     const KAI = '"KaiTi","STKaiti","Kaiti SC","FangSong",serif';
@@ -58,9 +58,9 @@ window.__ModuleLoader__.load({
     const ACCENT_ORDER = ['gold', 'jade', 'cinnabar', 'paper'];
 
     const ZH = {
-      nav: '墨色',
-      kicker: 'INKFALL · 墨色视觉系统',
-      title: '墨色主题',
+      nav: '墨蚀',
+      kicker: 'INKFALL · 墨蚀：拾字纪',
+      title: '墨蚀：拾字纪',
       panelTitle: '视觉设置',
       rowEnable: '启用主题',
       rowEnableHint: '关闭后恢复默认外观',
@@ -85,9 +85,9 @@ window.__ModuleLoader__.load({
     };
 
     const EN = {
-      nav: 'Ink',
-      kicker: 'INKFALL · INK VISUAL SYSTEM',
-      title: 'Ink theme',
+      nav: 'Inkfall',
+      kicker: 'INKFALL · 墨蚀：拾字纪',
+      title: 'Inkfall',
       panelTitle: 'Visual settings',
       rowEnable: 'Enable theme',
       rowEnableHint: 'Turn off to restore the default look',
@@ -236,6 +236,8 @@ body::after {
 .ink-frame__tick--br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
 .ink-frame__grain { position: absolute; inset: 0; opacity: .075; mix-blend-mode: soft-light; background-image: ${GRAIN}; background-size: 180px 180px; }
 .ink-frame__mark { position: absolute; right: 2.6vw; bottom: 2.2vh; font-family: ${SERIF}; font-size: clamp(200px, 26vw, 380px); line-height: .82; color: rgba(201, 169, 106, .055); user-select: none; }
+.ink-frame__vertical { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-family: ${SERIF}; font-size: 11px; letter-spacing: .42em; color: rgba(201, 169, 106, .32); }
+.ink-frame__vertical em { font-style: normal; color: rgba(201, 169, 106, .18); }
 /* The ink astrolabe: a large, low-contrast instrument arc entering from the
    top-right corner (centre on the corner, one quarter showing). The plate
    fades out toward its rim, so there is no hard circular edge against the app.
@@ -320,14 +322,6 @@ body { --dsh-scrollbar-thumb: rgba(201, 169, 106, .34); --dsh-scrollbar-thumb-ho
 .ink-swatch.is-on { border-color: var(--dsw-alias-brand-primary); color: var(--dsw-alias-label-primary); }
 .ink-swatch__seal { width: 12px; height: 12px; flex: none; transform: rotate(-2deg); }
 .ink-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 9px; letter-spacing: .26em; text-transform: uppercase; color: var(--dsw-alias-label-secondary); opacity: .8; }
-`;
-
-    const FOOT_CSS = `
-.ink-foot-btn { display: inline-flex; align-items: center; gap: 8px; padding: 3px; border: 0; border-radius: 2px; background: transparent; color: var(--dsw-alias-label-secondary); font: inherit; font-size: 12px; cursor: pointer; }
-.ink-foot-btn:hover { color: var(--dsw-alias-label-primary); }
-.ink-foot-btn:focus-visible { outline: 2px solid var(--dsw-alias-brand-primary); outline-offset: 3px; }
-.ink-foot-btn--off { opacity: .5; }
-.ink-foot-btn__seal { width: 22px; height: 22px; flex: none; display: grid; place-items: center; border-radius: 1px; background: linear-gradient(145deg, #b64b38, #79281f); box-shadow: inset 0 0 0 1px rgba(255, 232, 206, .28); color: #f1e5ce; font-family: ${SERIF}; font-size: 12px; line-height: 1; transform: rotate(-2deg); }
 `;
 
     /* ------------------------------------------------------------------ *
@@ -619,6 +613,12 @@ body { --dsh-scrollbar-thumb: rgba(201, 169, 106, .34); --dsh-scrollbar-thumb-ho
             h('div', { key: 'inner', className: 'ink-frame__inner' }),
             h('div', { key: 'bl', className: 'ink-frame__tick ink-frame__tick--bl' }),
             h('div', { key: 'br', className: 'ink-frame__tick ink-frame__tick--br' }),
+            h(
+              'div',
+              { key: 'vertical', className: 'ink-frame__vertical' },
+              '水墨留白',
+              h('em', null, ' · INK'),
+            ),
             h('div', { key: 'mark', className: 'ink-frame__mark' }, '墨'),
           ]
         : null;
@@ -639,26 +639,6 @@ body { --dsh-scrollbar-thumb: rgba(201, 169, 106, .34); --dsh-scrollbar-thumb-ho
           : null,
         prefs.backdrop ? h('div', { key: 'grain', className: 'ink-frame__grain' }) : null,
         ornament,
-      );
-    }
-
-    function SidebarToggle(props) {
-      const prefs = usePrefs();
-      const t = useTranslate();
-      const label = prefs.enabled ? t('footOn') : t('footOff');
-      return h(
-        'button',
-        {
-          type: 'button',
-          className: 'ink-foot-btn' + (prefs.enabled ? '' : ' ink-foot-btn--off'),
-          'aria-pressed': prefs.enabled ? 'true' : 'false',
-          title: label,
-          'aria-label': label,
-          onClick: () => updatePrefs({ enabled: !prefs.enabled }),
-        },
-        h('style', { key: 'css' }, FOOT_CSS),
-        h(Seal, { size: 28, glyph: '墨' }),
-        props.wide ? h('span', null, t('nav')) : null,
       );
     }
 
@@ -869,16 +849,6 @@ body { --dsh-scrollbar-thumb: rgba(201, 169, 106, .34); --dsh-scrollbar-thumb-ho
                 InkSettings,
               )),
           'ink-theme: settings section',
-        );
-
-        ctx.effect(
-          () =>
-            ctx.slots.inject('sidebar.footer.action', () =>
-              ctx.slots.register(
-                { name: 'sidebar.footer.action', id: 'ink-theme-toggle', order: 50, label: () => state.t('nav') },
-                SidebarToggle,
-              )),
-          'ink-theme: sidebar toggle',
         );
 
         syncSkin();

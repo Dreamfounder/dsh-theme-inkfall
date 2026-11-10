@@ -1,9 +1,17 @@
 {
   "name": "dsh-theme-inkfall",
-  "version": "2.5.0",
-  "description": "Ink-wash theme for the DSH Web GUI: rice-paper ivory, cinnabar seals, jade and gold on ink-black, with a grain-and-grid ambient field.",
+  "version": "2.7.0",
+  "description": "Inkfall theme for the DSH Web GUI: an ink-wash skin with rice-paper grain, gold hairlines, a corner astrolabe and serif typesetting.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dreamfounder/dsh-theme-inkfall.git"
+  },
+  "homepage": "https://github.com/Dreamfounder/dsh-theme-inkfall",
+  "bugs": {
+    "url": "https://github.com/Dreamfounder/dsh-theme-inkfall/issues"
+  },
   "keywords": [
     "deepseek-harness",
     "dsh",
